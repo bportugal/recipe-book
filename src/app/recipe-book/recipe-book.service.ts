@@ -10,7 +10,7 @@ export class RecipeBookService {
   // public recipeSelected = new EventEmitter<Recipe>();
   recipeChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
+  /*private recipes: Recipe[] = [
     new Recipe('Burger Recipe',
       'Burger with bacon and cheddar',
       'https://media-cdn.tripadvisor.com/media/photo-s/16/02/72/f9/duplo-com-pink-lemonade.jpg',
@@ -19,7 +19,9 @@ export class RecipeBookService {
       'Delicious tacos',
       'https://img.itdg.com.br/images/recipes/000/073/984/347923/347923_original.jpg',
       [new Ingredient('Meat', 4), new Ingredient('Lettuce', 3)])
-  ];
+  ];*/
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
 
@@ -43,6 +45,12 @@ export class RecipeBookService {
 
   updateRecipe(index: number, newRecipe: Recipe) {
     this.recipes[index] = newRecipe;
+    this.recipeChanged.next(this.recipes.slice());
+  }
+
+  setRecipes(newRecipes: Recipe[]) {
+    console.log(newRecipes);
+    this.recipes = newRecipes;
     this.recipeChanged.next(this.recipes.slice());
   }
 
